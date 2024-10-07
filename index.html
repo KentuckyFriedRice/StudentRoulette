@@ -111,6 +111,14 @@
 	    position:fixed;
 	    bottom:0px;
 	}
+        #selectedList{
+	    background-color:cornsilk;
+	    max-width:700px;
+	    padding:15px;
+	    margin:auto;
+	    border:2px solid black;
+	    border-radius:10px;
+	}
     </style>
 </head>
 <body>
@@ -135,90 +143,102 @@
     	</div>
     </div>
     </div>
+    <div id="usedNums">
+        <div id="selectedList"></div>
+    </div>
     <div id="ad"><a href="https://www.vecteezy.com/free-vector/thanksgiving"><p>Thanksgiving Vectors by Vecteezy</p></a></div>
 	
     <script>
-        let array = [];
-        let arrayLength = 23;
+    let array = [];
+    let arrayLength = 23;
 
-        function printArray() {
-            const arrayContainer = document.getElementById('array-container');
-            
-            // Clear the array container
-            arrayContainer.innerHTML = '';
+    function printArray() {
+        const arrayContainer = document.getElementById('array-container');
+        
+        // Clear the array container
+        arrayContainer.innerHTML = '';
 
-            // Loop through the array and create elements for each number
-            for (let i = 0; i < array.length; i++) {
-                const numberDiv = document.createElement('div');
-                numberDiv.classList.add('number');
-                numberDiv.textContent = array[i];
-                arrayContainer.appendChild(numberDiv);
-            }
+        // Loop through the array and create elements for each number
+        for (let i = 0; i < array.length; i++) {
+            const numberDiv = document.createElement('div');
+            numberDiv.classList.add('number');
+            numberDiv.textContent = array[i];
+
+            // Add click event to remove the clicked number
+            numberDiv.onclick = function() {
+                array.splice(i, 1); // Remove the number from the array
+                printArray();       // Re-render the array
+            };
+
+            arrayContainer.appendChild(numberDiv);
         }
+    }
 
-        function addNumber() {
-            const nextNumber = array.length ? array[array.length - 1] + 1 : 1;
-            array.push(nextNumber);
-	    arrayLength++;
+    function addNumber() {
+        const nextNumber = array.length ? array[array.length - 1] + 1 : 1;
+        array.push(nextNumber);
+        arrayLength++;
+        printArray();
+    }
+
+    function removeNumber() {
+        if (array.length > 0) {
+            array.pop();
+            arrayLength--;
             printArray();
         }
+    }
 
-        function removeNumber() {
-            if (array.length > 0) {
-                array.pop();
-		arrayLength--;
-                printArray();
-            }
+    function resetArray() {
+        array = [];
+        for (let i = 1; i <= arrayLength; i++) {
+            array.push(i);
         }
+        printArray();
+    }
 
-        function resetArray() {
-            array = [];
-            for (let i = 1; i <= arrayLength; i++) {
-                array.push(i);
-            }
-            printArray();
+    function imitateSpin() {
+        if (array.length > 0) {
+            const randomIndex = Math.floor(Math.random() * array.length);
+            const randomNumber = array[randomIndex];
+            document.getElementById('random-number').textContent = `Lucky Number: ${randomNumber}`;
         }
+    }
 
-        function imitateSpin() {
+    function fakeSpin() {
+        for (let i = 0; i < 10; i++) {
+            setTimeout(imitateSpin, i * 100);
+        }
+    }
+
+    function spin() {
+        fakeSpin();
+
+        setTimeout(() => {
             if (array.length > 0) {
                 const randomIndex = Math.floor(Math.random() * array.length);
                 const randomNumber = array[randomIndex];
                 document.getElementById('random-number').textContent = `Lucky Number: ${randomNumber}`;
+                
+                // Remove the selected number from the array
+                array.splice(randomIndex, 1);
+                printArray();
+            } else {
+                document.getElementById('random-number').textContent = 'No Students';
             }
+        }, 1000);
+    }
+
+    // Initialize the array with 23 items and print it
+    window.onload = function() {
+        for (let i = 1; i <= arrayLength; i++) {
+            array.push(i);
         }
+        printArray();
+        document.getElementById('random-number').textContent = 'Lucky Number: ';
+    };
+</script>
 
-        function fakeSpin() {
-            for (let i = 0; i < 10; i++) {
-                setTimeout(imitateSpin, i * 100);
-            }
-        }
 
-        function spin() {
-            fakeSpin();
-
-            setTimeout(() => {
-                if (array.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * array.length);
-                    const randomNumber = array[randomIndex];
-                    document.getElementById('random-number').textContent = `Lucky Number: ${randomNumber}`;
-                    
-                    // Remove the selected number from the array
-                    array.splice(randomIndex, 1);
-                    printArray();
-                } else {
-                    document.getElementById('random-number').textContent = 'No Students';
-                }
-            }, 1000);
-        }
-
-        // Initialize the array with 23 items and print it
-        window.onload = function() {
-            for (let i = 1; i <= arrayLength; i++) {
-                array.push(i);
-            }
-            printArray();
-            document.getElementById('random-number').textContent = 'Lucky Number: ';
-        };
-    </script>
 </body>
 </html>
