@@ -8,10 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Eater&family=Poetsen+One&display=swap" rel="stylesheet">
     <title>Student Roulette</title>
     <style>
+        #subPrime{
+	    overflow:hidden;
+	}
 	body{
 	    background-color:limegreen;
 	    background-image:url("fallBackground.jpg");
-	    background-repeat: repeat;
+	    background-repeat: repeat;s
 	}
 	
 	#prime{
@@ -111,18 +114,64 @@
 	    position:fixed;
 	    bottom:0px;
 	}
-        #selectedList{
+	.usedNums{
 	    background-color:cornsilk;
 	    max-width:700px;
 	    padding:15px;
 	    margin:auto;
 	    border:2px solid black;
 	    border-radius:10px;
-	    display:none;
+	    font-weight:bold;
+	}
+	.usedNums .number{
+	    width:12%;
+	}
+	#topNums {
+	    width:23%;      
+    	    position: relative;   
+    	    float: left;   
+    	    padding-bottom: 5px;
+    	    border: 10px solid black;
+    	    border-radius: 10px;
+    	    box-sizing: border-box;
+	}
+
+	#bottomNums{
+	    float:none;
+	    max-width:600px;
+	    padding:10px;
+	    padding-bottom:0px;
+	    margin:auto;
+	    border:2px solid black;
+	    border-radius:10px;
+	    margin-top:15px;
+	}
+	#selectedList,#selectedList2{
+	    border-bottom:2px solid black;
+	}
+	#selectedListSorted,#selectedListSorted2{
+	    margin-top:10px;
+	}
+
+	@media (min-width: 1378px){
+	    #bottomNums{
+		    display:none;
+		}
+	}
+	@media (max-width: 1377px){
+	    #topNums{
+		    display:none;
+		}
 	}
     </style>
 </head>
 <body>
+    <div id="subPrime">
+    <div class="usedNums" id="topNums">
+	<h1>Called Numbers</h1>
+        <div id="selectedList" class="row"></div>
+	<div id="selectedListSorted" class="row"></div>
+    </div>
     <div id="prime">
     <div id="container0">
 	<h1>Student Roulette</h1>
@@ -143,19 +192,24 @@
         	<button id="reset" onclick="resetArray()">Reset</button>
     	</div>
     </div>
+    <div class="usedNums" id="bottomNums">
+	<h1>Called Numbers</h1>
+        <div id="selectedList2" class="row"></div>
+	<div id="selectedListSorted2" class="row"></div>
     </div>
-    <div id="usedNums">
-        <div id="selectedList"></div>
     </div>
     <div id="ad"><a href="https://www.vecteezy.com/free-vector/thanksgiving"><p>Thanksgiving Vectors by Vecteezy</p></a></div>
-	
+    </div>
     <script>
     let array = [];
+    let selected = [];
+    let removed = [];
     let arrayLength = 23;
+    let count = 23
 
     function printArray() {
         const arrayContainer = document.getElementById('array-container');
-        
+    
         // Clear the array container
         arrayContainer.innerHTML = '';
 
@@ -167,36 +221,121 @@
 
             // Add click event to remove the clicked number
             numberDiv.onclick = function() {
-                array.splice(i, 1); // Remove the number from the array
-                printArray();       // Re-render the array
+                removed.push(array[i]); // Add to removed array
+                array = array.filter(num => !removed.includes(num)); // Filter out removed numbers
+                selected = selected.filter(num => !removed.includes(num)); // Filter out from selected as well
+                printArray();
+                printSelected();
             };
 
             arrayContainer.appendChild(numberDiv);
         }
     }
 
+
+    function printSelected() {
+        const arrayContainer = document.getElementById('selectedList');
+        const arrayContainer2 = document.getElementById('selectedList2');
+    
+        const selectedSorted = selected.slice(); // Make a copy for sorting
+    
+        // Clear the containers
+        arrayContainer.innerHTML = '';
+        arrayContainer2.innerHTML = '';
+
+        // Display the original selected list
+        for (let i = 0; i < selected.length; i++) {
+            const numberDiv1 = document.createElement('div');
+            numberDiv1.classList.add('number');
+            numberDiv1.textContent = selected[i];
+
+            numberDiv1.onclick = function() {
+                removed.push(selected[i]); // Add to removed array
+                array = array.filter(num => !removed.includes(num)); // Filter out removed numbers
+                selected = selected.filter(num => !removed.includes(num)); // Filter out from selected as well
+                printArray();
+                printSelected();
+            };
+
+            arrayContainer.appendChild(numberDiv1);
+
+            const numberDiv2 = document.createElement('div');
+            numberDiv2.classList.add('number');
+            numberDiv2.textContent = selected[i];
+            arrayContainer2.appendChild(numberDiv2);
+        }
+
+        // Sort and display the selected list in sorted order
+        const selectedContainer = document.getElementById('selectedListSorted');
+        const selectedContainer2 = document.getElementById('selectedListSorted2');
+    
+        selectedContainer.innerHTML = '';
+        selectedContainer2.innerHTML = '';
+
+        selectedSorted.sort((a, b) => a - b);
+    
+        for (let i = 0; i < selectedSorted.length; i++) {
+            const sortedDiv1 = document.createElement('div');
+            sortedDiv1.classList.add('number');
+            sortedDiv1.textContent = selectedSorted[i];
+
+            const sortedDiv2 = document.createElement('div');
+            sortedDiv2.classList.add('number');
+            sortedDiv2.textContent = selectedSorted[i];
+        
+            selectedContainer.appendChild(sortedDiv1);
+            selectedContainer2.appendChild(sortedDiv2);
+        }
+    }
+
+
+
     function addNumber() {
-        const nextNumber = array.length ? array[array.length - 1] + 1 : 1;
+        let nextNumber = array.length ? array[array.length - 1] + 1 : 1;
+
+        // Skip any numbers that are in the removed array
+        while (removed.includes(nextNumber)) {
+            nextNumber++;
+        }
+
         array.push(nextNumber);
         arrayLength++;
         printArray();
     }
 
-    function removeNumber() {
-        if (array.length > 0) {
-            array.pop();
-            arrayLength--;
-            printArray();
-        }
-    }
 
-    function resetArray() {
-        array = [];
-        for (let i = 1; i <= arrayLength; i++) {
-            array.push(i);
+    function removeNumber() {
+        while (array.length > 0) {
+            const numberToRemove = array.pop();
+            arrayLength--;
+
+            // Skip removed numbers
+            if (!removed.includes(numberToRemove)) {
+                break; // Stop as soon as a non-removed number is found and removed
+            }
         }
         printArray();
     }
+
+
+    function resetArray() {
+        array = [];
+        selected = [];
+
+        // Set arrayLength back to the original total count (e.g., 23, if that's the intended reset count)
+        const originalCount = 23; // Replace 23 with your initial full range count
+        arrayLength = originalCount;
+
+        // Re-initialize the array, excluding numbers in 'removed'
+        for (let i = 1; i <= arrayLength; i++) {
+            if (!removed.includes(i)) {
+                array.push(i);
+            }
+        }
+
+        printArray(); // Re-display the array after resetting
+    }
+
 
     function imitateSpin() {
         if (array.length > 0) {
@@ -221,9 +360,14 @@
                 const randomNumber = array[randomIndex];
                 document.getElementById('random-number').textContent = `Lucky Number: ${randomNumber}`;
                 
+		// Add to selected array
+		selected.push(array[randomIndex]);
+
                 // Remove the selected number from the array
-                array.splice(randomIndex, 1);
+		array.splice(randomIndex, 1);
+		
                 printArray();
+		printSelected();
             } else {
                 document.getElementById('random-number').textContent = 'No Students';
             }
@@ -232,12 +376,18 @@
 
     // Initialize the array with 23 items and print it
     window.onload = function() {
-        for (let i = 1; i <= arrayLength; i++) {
+    // Initialize the array with numbers from 1 to arrayLength
+    for (let i = 1; i <= arrayLength; i++) {
+        // Only add numbers that are not in the removed array
+        if (!removed.includes(i)) {
             array.push(i);
         }
-        printArray();
-        document.getElementById('random-number').textContent = 'Lucky Number: ';
-    };
+    }
+
+    printArray(); // Display the filtered array
+    document.getElementById('random-number').textContent = 'Lucky Number: ';
+};
+
 </script>
 
 
