@@ -8,15 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Eater&family=Poetsen+One&display=swap" rel="stylesheet">
     <title>Student Roulette</title>
     <style>
-        #subPrime{
+	#subPrime{
 	    overflow:hidden;
 	}
 	body{
 	    background-color:limegreen;
 	    background-image:url("fallBackground.jpg");
-	    background-repeat: repeat;s
+	    background-repeat: repeat;
 	}
-	
+	h1,h2,p,#random-number,#container2{
+	    cursor:default;
+	}	
 	#prime{
 	    background-color:cornsilk;
 	    max-width:700px;
@@ -94,21 +96,22 @@
 	button{
 	    border-radius:10px;
 	    font-weight:bold;
+	    cursor:pointer;
 	}
 
-	#minus{width:21px;}
+	#minus{
+	    width:21px;
+	}
+	
 	#spinner{
-	    background-color:red;
-	    width:100px;
-	    height:100px;
-	    border-radius:50px;
-	    margin-top:20px;
-	    border:10px ridge red;
+	    width:120px;
+        height:120px;
+        margin-top:20px;
+        cursor:pointer;
 	}
 
 	#spinner:active{
-	    background-color:firebrick;
-	    border:10px groove red;
+	    filter: brightness(.7);
 	}
 	#ad {
     	    position: absolute;
@@ -178,7 +181,7 @@
 <body>
     <div id="subPrime">
     <div class="usedNums" id="topNums">
-	<h1>Called Numbers</h1>
+	<h1><ruby>Called Numbers<!--<rt style="text-shadow:none;">呼んだ数字</rt>--></ruby></h1>
         <div id="selectedList" class="row"></div>
 	<div id="selectedListSorted" class="row"></div>
     </div>
@@ -188,7 +191,10 @@
     </div>
     <div id="container1">
     <div id="random-number">Lucky Number: </div>
-    <div id="s"><button id="spinner" onclick="spin()">Spin</button></div>
+    <div id="s">
+	<!--<button id="spinner" onclick="spin()">Spin</button></div>-->
+	<img id="spinner" src="pumpkin.png" alt="SPIN" onclick="spin()"/>
+    </div>
     </div>
     <div id="container2">
 	<h2>The Chopping Block</h2>
@@ -229,7 +235,7 @@
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
             numberDiv.textContent = array[i];
-	    numberDiv.setAttribute('style', numColor+'text-shadow:1px 1px black;');
+	    numberDiv.setAttribute('style', numColor+'text-shadow:1px 1px black;cursor:pointer;');
 
             // Add click event to remove the clicked number
             numberDiv.onclick = function() {
@@ -430,6 +436,24 @@
     
     //defines season to change css to appropriate theme
     let season = findSeason();
+    
+    let day;
+    switch (season) {
+    case "Autumn":
+        day = "Sunday";
+        break;
+    case "Winter":
+        day = "Monday"; 
+        break;
+    case "Spring":
+        day = "Tuesday";
+        break;
+    case "Summer":
+        break;
+    // additional cases
+    default:
+        day = "Unknown";
+}
 };
 
 </script>
