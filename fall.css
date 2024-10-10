@@ -1,0 +1,54 @@
+/*
+#eee6d2 Orchid White
+#422911 Chocolate Brown
+#8c3f1d	Redish Brown
+#eca723 Yellow-Orange
+#e77640 Pizazz Orange
+#c4b09e	Grey Brown
+#9e7767 Light Redish Brown
+#599e7f Patina Green
+*/
+*{
+    color:#422911;
+    border-color:#422911;
+}
+
+#prime {
+    background-color:#eee6d2;
+    border-color:#422911;
+}
+
+#container2 {
+    background-color:#599e7f;
+}
+
+button {
+    background-color:#eca723;
+}
+
+h2 {
+    color:#eca723;
+    text-shadow: 4px 2px black;
+}
+
+#spinner {
+    background-color:red;
+    border: 10px ridge red;
+}
+
+.usedNums {
+    background-color:#eca723;
+}
+
+.usedNums h1 {
+    color:#599e7f;
+    text-shadow: 1px 2px black;
+}
+
+.usedNums,#container2,#prime {
+    border-color:#422911;
+}
+
+#topNums {
+    border:10px solid #422911;
+}

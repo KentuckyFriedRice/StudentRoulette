@@ -137,10 +137,13 @@
     	    position: relative;   
     	    float: left;   
     	    padding-bottom: 5px;
+	    padding-top:0px;
     	    border: 10px solid black;
     	    border-radius: 10px;
     	    box-sizing: border-box;
 	}
+
+ 	#topNums h1{margin-top:15px;}
 
 	#bottomNums{
 	    float:none;
@@ -170,6 +173,7 @@
 		}
 	}
     </style>
+    <link rel="stylesheet" href="fall.css">
 </head>
 <body>
     <div id="subPrime">
@@ -211,7 +215,8 @@
     let selected = [];
     let removed = [];
     let arrayLength = 23;
-    let count = 23
+    let count = 23;
+    let numColor = 'color:white;';
 
     function printArray() {
         const arrayContainer = document.getElementById('array-container');
@@ -224,6 +229,7 @@
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
             numberDiv.textContent = array[i];
+	    numberDiv.setAttribute('style', numColor+'text-shadow:1px 1px black;');
 
             // Add click event to remove the clicked number
             numberDiv.onclick = function() {
@@ -340,7 +346,7 @@
         }
 
         printArray(); // Re-display the array after resetting
-	printSelected(); 
+        printSelected();
     }
 
 
@@ -381,6 +387,34 @@
         }, 1000);
     }
 
+    //Get Current Day and month and return the season
+    var months = ["xxx","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    function getMMDD() {
+        const dateObj = new Date();
+        const month   = dateObj.getUTCMonth() + 1; // months from 1-12
+        const day     = dateObj.getUTCDate();
+
+        const newDate = month + day;
+
+        // Using padded values, so that 2023/1/7 becomes 2023/01/07
+        const pMonth        = month.toString().padStart(2,"0");
+        const pDay          = day.toString().padStart(2,"0");
+        const newPaddedDate = pMonth+pDay;
+	console.log(newPaddedDate);
+	
+        return newPaddedDate;
+    }  
+
+    function findSeason() {
+        let d = getMMDD();
+        if (d < "0320") {return "Winter";}
+        if (d < "0621") {return "Spring";}
+        if (d < "0921") {return "Summer";}
+        if (d < "1222") {return "Autumn";}
+        return "Winter";
+    }
+
     // Initialize the array with 23 items and print it
     window.onload = function() {
     // Initialize the array with numbers from 1 to arrayLength
@@ -393,6 +427,9 @@
 
     printArray(); // Display the filtered array
     document.getElementById('random-number').textContent = 'Lucky Number: ';
+    
+    //defines season to change css to appropriate theme
+    let season = findSeason();
 };
 
 </script>
