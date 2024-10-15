@@ -1,0 +1,58 @@
+/*
+#6F7F44 Army
+#F3FFD4 Very Light
+#DEFF88	Light Lime
+#797F6A Grey
+#B2CC6D Dulled Lime
+#1C593D Dark Green
+
+#B98619 Gold
+
+#c4b09e	Grey Brown
+#9e7767 Light Redish Brown
+#599e7f Patina Green
+*/
+*{
+    color:black;
+    border-color:#1C593D;
+}
+
+body {
+    background-image:url("./backgrounds/winterBackground.jpg");
+	background-repeat: repeat;
+}
+
+#prime {
+    background-color:#F3FFD4;
+    border-color:#797F6A;
+}
+
+#container2 {
+    background-color:#1C593D;
+}
+
+button {
+    background-color:#B2CC6D;
+}
+
+h2 {
+    color:#B2CC6D;
+    text-shadow: 4px 2px black;
+}
+
+.usedNums {
+    background-color:#B2CC6D;
+}
+
+.usedNums h1 {
+    color:royalblue;
+    text-shadow: 1px 2px black;
+}
+
+.usedNums,#container2,#prime {
+    border-color:#422911;
+}
+
+#topNums {
+    border:10px solid #1C593D; 
+}
