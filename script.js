@@ -218,26 +218,31 @@ let array = [];
     
     //defines season to change css to appropriate theme
     let season = findSeason();
-    
-    console.log(season);
+    console.log(season);    
+
+    document.getElementById('seasonCSS').href = "style/" + season + ".css"; //sets the link to the css file
+
     switch (season) {
     case "autumn":
         numCSS = 'color:white;text-shadow:1px 1px black;';
         document.getElementById('spinner').src="style/images/pumpkin.png";
         document.getElementById('ad').innerHTML='<a href="https://www.vecteezy.com/free-vector/thanksgiving"><p>Thanksgiving Vectors by Vecteezy</p></a>';
+        printArray(); // Display the filtered array
+        break;
     case "winter":
         numCSS = 'color:white;text-shadow:1px 1px black;'; 
         document.getElementById('spinner').src="style/images/ornament.png";
         document.getElementById('ad').innerHTML='<a href="https://www.vecteezy.com/free-vector/christmas"><p>Christmas Vectors by Vecteezy</p></a>';
+        printArray(); // Display the filtered array
+        break;
     case "spring":
-        null;
+        printArray(); // Display the filtered array
+        break;
     case "summer":
-        null;
+        printArray(); // Display the filtered array
+        break;
     default:
-        null;
-    season = "style/" + season + ".css";
-    var a = document.getElementById('seasonCSS').href = season; //sets the link to the css file
-    console.log(season);
-    printArray(); // Display the filtered array
+        printArray(); // Display the filtered array
+        break;
     }
 }
