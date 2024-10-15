@@ -218,7 +218,7 @@ let array = [];
     
     //defines season to change css to appropriate theme
     let season = findSeason();
-    season = "winter";
+    
     console.log(season);
     switch (season) {
     case "autumn":
