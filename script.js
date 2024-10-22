@@ -219,9 +219,9 @@ let array = [];
     //defines season to change css to appropriate theme
     let season = findSeason();
     console.log(season);    
-
+    //season = "winter";
     document.getElementById('seasonCSS').href = "style/" + season + ".css"; //sets the link to the css file
-
+    
     switch (season) {
     case "autumn":
         numCSS = 'color:white;text-shadow:1px 1px black;';
@@ -233,6 +233,9 @@ let array = [];
         numCSS = 'color:white;text-shadow:1px 1px black;'; 
         document.getElementById('spinner').src="style/images/ornament.png";
         document.getElementById('ad').innerHTML='<a href="https://www.vecteezy.com/free-vector/christmas"><p>Christmas Vectors by Vecteezy</p></a>';
+        document.getElementById('c2h2').innerHTML='Nice List';
+        Array.from(document.getElementsByClassName('usedNumsh1')).forEach(el => el.innerHTML="Naughty List");
+
         printArray(); // Display the filtered array
         break;
     case "spring":
