@@ -5,8 +5,13 @@
 #797F6A Grey
 #B2CC6D Dulled Lime
 #1C593D Dark Green
+#79B065 Bud Green
 
 #B98619 Gold
+
+#519391 Background Blue
+
+#FDA259 Reindeer Brown
 
 #c4b09e	Grey Brown
 #9e7767 Light Redish Brown
@@ -36,8 +41,10 @@ button {
 }
 
 h2 {
-    color:#B2CC6D;
-    text-shadow: 4px 2px black;
+    font-family: "Poetsen One", sans-serif;
+    color:dodgerblue;
+    text-shadow: 2px 1px 5px black;
+    font-size: 22pt;
 }
 
 .usedNums {
@@ -45,7 +52,7 @@ h2 {
 }
 
 .usedNums h1 {
-    color:royalblue;
+    color:#25744f;
     text-shadow: 1px 2px black;
 }
 
