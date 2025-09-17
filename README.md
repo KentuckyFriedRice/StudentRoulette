@@ -4,4 +4,6 @@ Many times, students don't want to volunteer in class. Since at my school at lea
 We used a different web page before but when our class was being observed, we had a time when an inappropriate advertisement appeared. 
 Therefore, I decided to make this despite the many options available.
 
+*You can click a number to remove that student until a page refresh*
+
 I tried making a few themes for each season but I haven't finished those for spring and summer yet.
